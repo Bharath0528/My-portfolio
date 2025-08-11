@@ -16,7 +16,7 @@ It is built with HTML, CSS, Tailwind CSS, and JavaScript, and deployed on Netlif
 - `js/` – JavaScript logic for animations, navigation, and form handling
 
 ## 🚀 Live Demo
-[Click here to view the portfolio](https://your-netlify-site.netlify.app)  
+[Click here to view the portfolio](https://bharathkumarprofile.netlify.app/)  
 *(Replace the link with your actual Netlify URL after deployment)*
 
 ## 🛠️ Technologies Used
