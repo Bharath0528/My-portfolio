@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bharath kumar k's Portfolio</title>
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVp+z+O+53E75n53yB8a6A71lB8fF+8b4f1sQe/6U1v+2Q/8Wb8W3E77fV8l2kLq8K2t+5P2D2oE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+      color: #343a40;
+    }
+    
+    /* Active link indicator for desktop */
+    .active-nav-link {
+      color: #3498db;
+      font-weight: 700;
+      position: relative;
+    }
+    .active-nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      width: 0%;
+      height: 2px;
+      background-color: #3498db;
+      transform: translateX(-50%);
+      transition: width 300ms ease-in-out;
+    }
+    .active-nav-link.active-line::after {
+        width: 100%;
+    }
+
+    .nav-link:not(.active-nav-link):hover {
+      color: #3498db;
+    }
+
+    /* Card styling */
+    .card {
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      background-color: #ffffff;
+      border: 1px solid #e9ecef;
+      border-radius: 12px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Hero section styling */
+    .hero-text-color {
+      color: #343a40;
+    }
+    .hero-accent-color, .section-header-color {
+      color: #3498db;
+    }
+    
+    /* Blob image styling */
+    .blob-frame {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      padding: 5px;
+      background: linear-gradient(45deg, #3498db, #2980b9);
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+      transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+    .blob-frame:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(52, 152, 219, 0.7);
+    }
+    .blob-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    .slide-up {
+      animation: slideUp 1s ease-in-out forwards;
+      opacity: 0;
+    }
+    .slide-up.delay-200 { animation-delay: 0.2s; }
+    .slide-up.delay-400 { animation-delay: 0.4s; }
+    .slide-up.delay-600 { animation-delay: 0.6s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 768px) {
+      .blob-frame {
+        width: 200px;
+        height: 200px;
+      }
+    }
+    
+    /* Custom image icons in skills section */
+    .skill-icon-img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+    
+    /* Social media icons */
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      transition: transform 0.2s ease-in-out;
+    }
+    .social-icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* Desktop Dropdown menu styling */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      z-index: 100;
+      min-width: 150px;
+      padding: 8px 0;
+      animation: fadeInDown 0.3s ease-in-out;
+    }
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+    .dropdown-link {
+      display: block;
+      padding: 8px 16px;
+      color: #495057;
+      text-decoration: none;
+      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+    .dropdown-link:hover {
+      background-color: #e9ecef;
+      color: #3498db;
+    }
+    .dropdown-button {
+      padding: 1rem 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Mobile menu dropdown styling */
+    .mobile-dropdown-menu {
+      display: none;
+      list-style-type: none;
+      margin: 0;
+      padding-left: 1rem;
+      transition: all 0.3s ease-in-out;
+    }
+    .mobile-dropdown-menu.active {
+      display: block;
+    }
+    .mobile-dropdown-link {
+      display: block;
+      padding: 8px 0;
+      color: #6c757d;
+      text-decoration: none;
+    }
+    .mobile-nav-link-button {
+      width: 100%;
+      text-align: left;
+      padding: 8px 16px;
+    }
+    .mobile-nav-item {
+        width: 100%;
+    }
+    .mobile-menu a, .mobile-menu button {
+      transition: color 0.2s ease-in-out;
+    }
+    .mobile-menu a:hover, .mobile-menu button:hover {
+      color: #3498db;
+    }
+    
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(52, 152, 219, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
+      }
+    }
+
+    /* Education timeline styling */
+    .education-item {
+        position: relative;
+        padding-left: 2rem;
+    }
+    .education-item::before {
+        content: '';
+        position: absolute;
+        left: 0.5rem;
+        top: 0.75rem;
+        width: 12px;
+        height: 12px;
+        background-color: #3498db;
+        border-radius: 50%;
+        z-index: 10;
+        border: 2px solid #ffffff;
+    }
+    .education-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 0.95rem;
+        top: 1.25rem;
+        bottom: -0.5rem;
+        width: 2px;
+        background-color: #e9ecef;
+    }
+  </style>
+</head>
+<body class="antialiased text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-gray-800">Bharath kumar k</h1>
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-8 items-center" id="nav-links">
+        <a href="#home" class="nav-link text-gray-600 hover:text-gray-900 transition-colors duration-300 capitalize relative active-nav-link">home</a>
+        
+        <!-- About Dropdown -->
+        <div class="relative group dropdown">
+          <button class="nav-link text-gray-600 hover:text-gray-900 transition-colors duration-300 capitalize relative dropdown-button">
+            About <i class="fas fa-caret-down ml-1 transition-transform duration-300 group-hover:rotate-180"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#about" class="dropdown-link nav-link">About Me</a>
+            <a href="#education" class="dropdown-link nav-link">Education</a>
+            <a href="#experience" class="dropdown-link nav-link">Experience</a>
+          </div>
+        </div>
+
+        <!-- Career Dropdown -->
+        <div class="relative group dropdown">
+          <button class="nav-link text-gray-600 hover:text-gray-900 transition-colors duration-300 capitalize relative dropdown-button">
+            Career <i class="fas fa-caret-down ml-1 transition-transform duration-300 group-hover:rotate-180"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#projects" class="dropdown-link nav-link">Projects</a>
+            <a href="#skills" class="dropdown-link nav-link">Skills</a>
+            <a href="#certificates" class="dropdown-link nav-link">Certificates</a>
+          </div>
+        </div>
+        
+        <a href="#contact" class="nav-link text-gray-600 hover:text-gray-900 transition-colors duration-300 capitalize relative">contact</a>
+      </div>
+      
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-gray-900 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <svg xmlns="http://www.w3.org/2d00/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile dropdown menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-sm py-2">
+      <div class="flex flex-col items-start space-y-2 px-4">
+        <a href="#home" class="mobile-nav-item nav-link text-gray-600 hover:text-gray-900 transition-colors duration-300 capitalize relative active-nav-link text-lg font-semibold">home</a>
+        
+        <!-- Mobile About Dropdown -->
+        <div class="mobile-nav-item w-full">
+          <button class="mobile-nav-link-button flex justify-between items-center text-gray-600 hover:text-gray-900 capitalize text-lg font-semibold">
+            <span>About</span>
+            <i class="fas fa-caret-down ml-1 transition-transform duration-300"></i>
+          </button>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#about" class="mobile-dropdown-link nav-link">About Me</a></li>
+            <li><a href="#education" class="mobile-dropdown-link nav-link">Education</a></li>
+            <li><a href="#experience" class="mobile-dropdown-link nav-link">Experience</a></li>
+          </ul>
+        </div>
+        
+        <!-- Mobile Career Dropdown -->
+        <div class="mobile-nav-item w-full">
+          <button class="mobile-nav-link-button flex justify-between items-center text-gray-600 hover:text-gray-900 capitalize text-lg font-semibold">
+            <span>Career</span>
+            <i class="fas fa-caret-down ml-1 transition-transform duration-300"></i>
+          </button>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="#projects" class="mobile-dropdown-link nav-link">Projects</a></li>
+            <li><a href="#skills" class="mobile-dropdown-link nav-link">Skills</a></li>
+            <li><a href="#certificates" class="mobile-dropdown-link nav-link">Certificates</a></li>
+          </ul>
+        </div>
+
+        <a href="#contact" class="mobile-nav-item nav-link text-gray-600 hover:text-gray-900 transition-colors duration-300 capitalize relative text-lg font-semibold">contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sections -->
+  <main>
+    <!-- Home/Hero Section -->
+    <section id="home" class="py-24 px-4 container mx-auto flex flex-col md:flex-row items-center justify-center gap-12">
+      <div class="text-center md:text-left flex-1 hero-text-color">
+        <p class="text-xl font-medium text-gray-600 slide-up">Hello, I'm</p>
+        <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mt-2 slide-up delay-200">Bharath kumar k</h2>
+        <h3 class="text-3xl md:text-4xl font-semibold hero-accent-color mt-2 slide-up delay-400">Java Full Stack Developer</h3>
+        <p class="mt-8 max-w-xl text-gray-700 leading-relaxed mx-auto md:mx-0 slide-up delay-600">
+          An adept Java Full Stack Developer who turns complex ideas into elegant, functional web applications. My expertise is in building robust, end-to-end solutions—from architecting secure and efficient backend systems with RESTful APIs to creating intuitive, responsive user interfaces. I am dedicated to delivering high-quality, scalable code that makes a tangible impact.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-4 fade-in delay-800">
+          <a href="https://plum-laney-58.tiiny.site" target="_blank" class="bg-gray-900 text-white px-6 py-3 rounded-full hover:bg-gray-700 transition-colors duration-300 shadow-md">
+            Download CV
+          </a>
+          <a href="#contact" class="bg-white border border-gray-300 text-gray-900 px-6 py-3 rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-md">
+            Contact Me
+          </a>
+        </div>
+      </div>
+      <div class="flex-shrink-0 mt-8 md:mt-0 fade-in delay-1000">
+        <div class="blob-frame">
+          <img 
+            src="https://i.im.ge/2025/08/05/JAVON4.bharath-tech-pic.png" 
+            alt="Bharath kumar k" 
+            class="blob-image"
+            onerror="this.onerror=null;this.src='https://placehold.co/250x250/343a40/ecf0f1?text=Profile+Pic'"
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-4 container mx-auto">
+      <h2 class="text-4xl font-bold text-center section-header-color mb-12 fade-in">About Me</h2>
+      <div class="max-w-7xl mx-auto p-8 card text-center fade-in">
+        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+          As a Java Full Stack Developer with a passion for building web applications that are both functional and user-friendly. I bring with me not only technical skills but also strong interpersonal qualities that make me adaptable and collaborative in any environment.
+        </p>
+        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+          Before stepping into software development, I worked as a Research Analyst in the robotics field where I conducted practical projects for many students. This experience sharpened my communication and leadership abilities, helping me guide teams and engage effectively with both students and senior management. It also gave me exposure to business development, where I learned to capture client attention and deliver meaningful results.
+        </p>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Beyond my professional side, I’m someone who loves watching Tamil movies, listening to music, and spending time with friends. I enjoy being approachable and building positive connections, which I believe are important in creating a healthy and productive work environment. These qualities help me collaborate well in teams, adapt to challenges, and bring energy to the workplace.
+        </p>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-24 px-4 container mx-auto">
+      <h2 class="text-4xl font-bold text-center section-header-color mb-12 fade-in">Education</h2>
+      <!-- New two-column layout for desktop, single column for mobile -->
+      <div class="flex flex-col md:flex-row gap-12 items-start justify-center">
+        <!-- Education content box (reduced width for desktop) -->
+        <div class="w-full md:w-2/3 flex flex-col gap-8 items-start relative px-4" id="education-grid">
+          <!-- Vertical line for connected design -->
+          <div class="absolute left-[34px] top-0 bottom-0 w-1 bg-gray-200 z-0 hidden md:block"></div>
+          <div class="p-8 card w-full education-item fade-in">
+            <h3 class="text-2xl font-bold text-gray-900">Bachelor of Engineering (Computer Science)</h3>
+            <p class="text-lg font-semibold text-gray-700 mt-2">S.A. Engineering College, Tamil Nadu</p>
+            <p class="text-gray-600 mt-1">Year of Graduation: 2023</p>
+            <p class="text-gray-600 mt-1">CGPA: 8.4/10</p>
+          </div>
+          <!-- Added HSC entry -->
+          <div class="p-8 card w-full education-item fade-in delay-200">
+            <h3 class="text-2xl font-bold text-gray-900">HSC</h3>
+            <p class="text-lg font-semibold text-gray-700 mt-2">Periyar Mat Hr Sec School, Chennai, Tamil Nadu</p>
+            <p class="text-gray-600 mt-1">Year of Graduation: 2019</p>
+          </div>
+          <!-- Added SSLC entry with correct year -->
+          <div class="p-8 card w-full education-item fade-in delay-400">
+            <h3 class="text-2xl font-bold text-gray-900">SSLC</h3>
+            <p class="text-lg font-semibold text-gray-700 mt-2">Don Bosco Mat Hr Sec School, Chennai, Tamil Nadu</p>
+            <p class="text-gray-600 mt-1">Year of Graduation: 2017</p>
+          </div>
+        </div>
+        <!-- Animated image box for desktop -->
+        <div class="hidden md:flex md:w-1/3 p-4 card items-center justify-center fade-in delay-600">
+          <img 
+            src="https://i.im.ge/2025/08/07/JCYlsc.top-view-school-supplies-tree-drawn-blackboard-education-day.jpeg" 
+            alt="School supplies and blackboard" 
+            title="Education-themed image"
+            class="w-full h-auto rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+            style="animation: pulse 2s infinite ease-in-out;"
+            onerror="this.onerror=null;this.src='https://placehold.co/400x600/3498db/ffffff?text=Education'"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-4 container mx-auto">
+      <h2 class="text-4xl font-bold text-center section-header-color mb-12 fade-in">Experience</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="experience-grid">
+        <div class="p-8 card fade-in">
+          <h3 class="text-2xl font-bold text-gray-900">BUSINESS DEVELOPMENT EXECUTIVE</h3>
+          <p class="text-lg font-semibold text-gray-700 mt-2">All Time Design Chennai, Tamil Nadu</p>
+          <p class="text-gray-600 mt-1">(July 2024 - August 2024)</p>
+          <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
+            <li>Effectively managed client relations and sales across the UAE, US, and UK, negotiating and closing deals for digital marketing and design services with CEOs and Managing Directors.</li>
+            <li>My role involved direct communication with key decision-makers to secure new business and ensure client satisfaction.</li>
+          </ul>
+        </div>
+        <div class="p-8 card fade-in delay-200">
+          <h3 class="text-2xl font-bold text-gray-900">RESEARCH ANALYST</h3>
+          <p class="text-lg font-semibold text-gray-700 mt-2">Cyberbots Chennai, Tamil Nadu</p>
+          <p class="text-gray-600 mt-1">(May 2023 - April 2024)</p>
+          <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
+            <li>Developed and led educational projects for CBSE and international schools, specializing in robotics and 3D design, and created compelling project workbooks.</li>
+            <li>Collaborated with the IT team on graphic design for social media advertising and event promotion, while also playing a key role in business development.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-4 container mx-auto">
+      <h2 class="text-4xl font-bold text-center section-header-color mb-12 fade-in">My Projects</h2>
+      <div class="flex flex-col gap-8" id="projects-grid">
+        <!-- Project 1: SpendWise -->
+        <div class="p-8 card fade-in">
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">SpendWise (Personal Project)</h3>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            A full-stack personal finance tracker that I conceived and developed independently to help users manage their income, expenses, and savings.
+          </p>
+          <!-- Stack with individually highlighted skills -->
+          <div class="flex flex-wrap items-center gap-2 mt-4">
+            <p class="text-lg font-semibold text-gray-800">Stack:</p>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Java</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Spring Boot</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Maven</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">HTML</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">CSS</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">JavaScript</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Thymeleaf</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">MySQL</span>
+          </div>
+        </div>
+
+        <!-- Project 2: Online Bus Ticket Booking System -->
+        <div class="p-8 card fade-in delay-200">
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Online Bus Ticket Booking System</h3>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            A web application designed for a streamlined user experience, allowing for easy registration, bus searches, ticket booking, and management of reservations.
+          </p>
+          <!-- Stack with individually highlighted skills -->
+          <div class="flex flex-wrap items-center gap-2 mt-4">
+            <p class="text-lg font-semibold text-gray-800">Stack:</p>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Java</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Spring Boot</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Maven</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">HTML</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">CSS</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">JavaScript</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Thymeleaf</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">MySQL</span>
+          </div>
+        </div>
+
+        <!-- Project 3: Patient Appointment System -->
+        <div class="p-8 card fade-in delay-400">
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Patient Appointment System</h3>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            A secure and organized system for booking doctor appointments and managing patient schedules.
+          </p>
+          <!-- Stack with individually highlighted skills -->
+          <div class="flex flex-wrap items-center gap-2 mt-4">
+            <p class="text-lg font-semibold text-gray-800">Stack:</p>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Java</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Spring Boot</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Maven</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">HTML</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">CSS</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">JavaScript</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">Thymeleaf</span>
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded-full">MySQL</span>
+          </div>
+        </div>
+      </div>
+      <!-- 'View My Projects' button moved here -->
+      <div class="text-center mt-8 fade-in delay-600">
+        <a href="https://github.com/Bharath0528?tab=repositories" target="_blank" class="inline-block bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-colors duration-300 shadow-md font-semibold">
+          View My Projects
+        </a>
+      </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-4 container mx-auto">
+      <h2 class="text-4xl font-bold text-center section-header-color mb-12 fade-in">My Skills</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8" id="skills-grid">
+        <!-- Skill cards will be generated here by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="py-24 px-4 container mx-auto">
+      <h2 class="text-4xl font-bold text-center section-header-color mb-12 fade-in">Certificates</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="certificates-grid">
+        <div class="p-8 card flex flex-col items-center text-center fade-in">
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">GUVI Java Full Stack Developer Certification</h3>
+          <img src="https://i.im.ge/2025/08/05/JAVKtD.Certification-1.png" alt="GUVI Java Full Stack Developer Certification" class="w-full h-auto rounded-lg shadow-md transition-transform duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/400x300/343a40/ecf0f1?text=Certificate+Image+1'">
+          <p class="text-lg font-semibold text-gray-700 mt-4">GUVI GEEK NETWORK PRIVATE LIMITED</p>
+        </div>
+        <div class="p-8 card flex flex-col items-center text-center fade-in delay-200">
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">GUVI – NSDC Certification</h3>
+          <img src="https://i.im.ge/2025/08/05/JAVVk4.certificate-2.png" alt="GUVI – NSDC Certification" class="w-full h-auto rounded-lg shadow-md transition-transform duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/400x300/343a40/ecf0f1?text=Certificate+Image+2'">
+          <p class="text-lg font-semibold text-gray-700 mt-4">GUVI GEEK NETWORK PRIVATE LIMITED</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-4 container mx-auto">
+      <h2 class="text-4xl font-bold text-center section-header-color mb-12 fade-in">Contact Me</h2>
+      <div class="max-w-lg mx-auto p-8 card fade-in">
+        <div class="flex justify-center space-x-6 mb-8">
+          <a href="https://www.linkedin.com/in/bharath-kumar-k-913988231/" target="_blank" rel="noopener noreferrer">
+            <img src="https://imgs.search.brave.com/QH1ex5GyQ5H5f5awMc-YsOg1xQwdJ1N61tLrZuDhQfQ/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbnNjb3V0LmNv/bS9pY29uL2ZyZWUv/cG5nLTI1Ni9mcmVl/LWxpbmtlZGluLTQ0/LTE1MTE0NS5wbmc_/Zj13ZWJwJnc9MTI4" alt="LinkedIn" class="social-icon" onerror="this.onerror=null;this.src='https://placehold.co/40x40/E2E8F0/64748B?text=LI'">
+          </a>
+          <a href="https://github.com/Bharath0528" target="_blank" rel="noopener noreferrer">
+            <img src="https://imgs.search.brave.com/PxDDAe3VdOhg0ELaqD_kt1aBwFeQArGmau-3tjHBeik/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8xMTM3Ni8xMTM3/NjQ0Ni5wbmc_c2Vt/dD1haXNfd2hpdGVf/bGFiZWw" alt="GitHub" class="social-icon" onerror="this.onerror=null;this.src='https://placehold.co/40x40/E2E8F0/64748B?text=GH'">
+          </a>
+          <a href="https://www.instagram.com/__bharath.k_04_?igsh=eTJxZ3dtajB2OXZk" target="_blank" rel="noopener noreferrer">
+            <img src="https://imgs.search.brave.com/KSLaa1pJNs3-lB0hByLRBWOQP3cYLxTl4ecE8Ksh17E/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZs/YXRpY29uLmNvbS81/MTIvMTc0LzE3NDg1/NS5wbmc" alt="Instagram" class="social-icon" onerror="this.onerror=null;this.src='https://placehold.co/40x40/E2E8F0/64748B?text=IG'">
+          </a>
+        </div>
+        
+<form name="contact" method="POST" data-netlify="true" id="contact-form" class="space-y-6">
+  <input type="hidden" name="form-name" value="contact">
+  <div>
+    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+    <input type="text" id="name" name="name" required
+      class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-colors"
+      placeholder="Your Name" />
+  </div>
+  <div>
+    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+    <input type="email" id="email" name="email" required
+      class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-colors"
+      placeholder="your@email.com" />
+  </div>
+  <div>
+    <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+    <textarea id="message" name="message" rows="4" required
+      class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition-colors"
+      placeholder="Your message..."></textarea>
+  </div>
+  <button type="submit"
+    class="w-full bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-colors duration-300 shadow-md font-semibold">
+    Send Message
+  </button>
+  <p id="form-success" class="hidden text-green-600 mt-4">✅ Thank you! Your message has been sent.</p>
+</form>
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  const form = event.target;
+  const data = new FormData(form);
+
+  fetch("/", {
+    method: "POST",
+    body: data
+  })
+  .then(() => {
+    document.getElementById('form-success').classList.remove('hidden');
+    form.reset();
+  })
+  .catch(() => alert("❌ Oops! Something went wrong."));
+});
+</script>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-8 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; <span id="current-year"></span> Bharath kumar k. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set the current year in the footer
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+
+      // Skills data and icon mapping
+      const skills = [
+  { name: 'html', icon: 'https://imgs.search.brave.com/zUXcgq2d53zpj8FSApbYS_0va1-1vsVB5OqKICOEXjk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly91eHdp/bmcuY29tL3dwLWNv/bnRlbnQvdGhlbWVz/L3V4d2luZy9kb3du/bG9hZC9icmFuZHMt/YW5kLXNvY2lhbC1t/ZWRpYS9odG1sLWlj/b24ucG5n' }, 
+  { name: 'css', icon: 'https://imgs.search.brave.com/ZTfJSiE-4Q8QDsu3zR9w1Rw9IKOkok42hBNTE5ERk2Q/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbnNjb3V0LmNv/bS9pY29uL2ZyZWUv/cG5nLTI1Ni9mcmVl/LWNzczMtbG9nby1p/Y29uLWRvd25sb2Fk/LWluLXN2Zy1wbmct/Z2lmLWZpbGUtZm9y/bWF0cy0tY3NzLXdv/cmRtYXJrLXByb2dy/YW1taW5nLWxhbmd1/Z2FlLWxhbmd1YWdl/LXBhY2stbG9nb3Mt/aWNvbnMtMTE3NTIw/MC5wbmc_Zj13ZWJw/Jnc9MTI4' }, 
+  { name: 'tailwind css', icon: 'https://imgs.search.brave.com/g9FkfDa6w1XTrEau7RVQdcu0OIEXaPl8aBTA50vRxjM/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c3ZncmVwby5jb20v/c2hvdy8zNzQxMTgv/dGFpbHdpbmQuc3Zn' }, 
+  { name: 'bootstrap', icon: 'https://imgs.search.brave.com/i8jN6_e73nOF7jVFzThMQIprOgOnYk1AUTxjJVDxEuc/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9zdHls/ZXMucmVkZGl0bWVk/aWEuY29tL3Q1XzJ0/cW5oL3N0eWxlcy9j/b21tdW5pdHlJY29u/X3hneXF0OWlrMmM4/YjEuanBnP3dpZHRo/PTk2JmhlaWdodD05/NiZmcmFtZT0xJmF1/dG89d2VicCZjcm9w/PTk2Ojk2LHNtYXJ0/JnM9MTg4ZDg1YWUz/ZjY4MjdmMjIzZWU0/YzIzM2NmMmFiY2M0/ZmM2OTdjNA' },
+  { name: 'java', icon: 'https://imgs.search.brave.com/jodMGCTHyl9aQZKnaffJnZhb10uhC6BceQlwJg-b0ZU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8yMjYvMjI2Nzc3/LnBuZz9zZW10PWFp/c193aGl0ZV9sYWJl/bA' }, 
+  { name: 'mysql', icon: 'https://imgs.search.brave.com/FbbTQn6NLIiCiq7YjjSrx3NO8t1ASr9LmBcE08S6aHU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c3ZncmVwby5jb20v/c2hvdy8zMDMyNTEv/bXlzcWwtbG9nby5z/dmc' },
+  { name: 'spring', icon: 'https://imgs.search.brave.com/1waRj6veEdOEBQVh9lXDC5tOnpL86lW3xptudcqfoig/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/Y2xpcGFydG1heC5j/b20vcG5nL21pZGRs/ZS8zMC0zMDAzNDJf/c3ByaW5nLWRhdGEt/dGVhbS1zcHJpbmct/ZnJhbWV3b3JrLWlj/b24ucG5n' }, 
+  { name: 'spring boot', icon: 'https://imgs.search.brave.com/BuNhM_wO8c4rvDp6dH2uTRvlqott8hjh1rvgHcm8y7A/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly91c2Vy/LWltYWdlcy5naXRo/dWJ1c2VyY29udGVu/dC5jb20vMzMxNTgw/NTEvMTAzNDY2NjA2/LTc2MGE0MDAwLTRk/MTQtMTFlYi05OTQx/LTJmM2QwMDM3MTQ3/MS5wbmc' }, 
+  { name: 'spring security', icon: 'https://imgs.search.brave.com/SZs9ljNvcvctk8sG-6sJ8M7-HbwPdmJy6qcUO-iivgA/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZs/YXRpY29uLmNvbS8x/MjgvMTA3MDMvMTA3/MDMwMzAucG5n' }, 
+  { name: 'maven', icon: 'https://imgs.search.brave.com/RToVwwayC4NBRZO9146StMMOvWPXJNZgMx4_050UI0M/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy82/MmE3OGNiZmU0MmQ3/MjlkOTI4YjE3NGUu/cG5n' }, 
+  { name: 'j unit', icon: 'https://imgs.search.brave.com/z5ZaO0uh4vlQzNUG4B9FFceKT3xt2GhOO1hcOIvAIWE/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9sb2dv/LnN2Z2Nkbi5jb20v/ZC9qdW5pdC1vcmln/aW5hbC13b3JkbWFy/ay5zdmc' }, 
+  { name: 'intelij', icon: 'https://imgs.search.brave.com/jN6UadzYDO_fVipBghXs_FqErSLoEn4mqi-ucY22gWQ/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuaWNvbi1pY29u/cy5jb20vMzA1My9Q/TkcvOTYvaW50ZWxs/aWpfbWFjb3NfYmln/c3VyX2ljb25fMTkw/MDYxLnBuZw' }, 
+  { name: 'eclipse', icon: 'https://imgs.search.brave.com/FcqWTF2JW9wehiPwWBhJ4tppBunnUhhUZ7BWj3v1If4/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbnNjb3V0LmNv/bS9pY29uL2ZyZWUv/cG5nLTI1Ni9mcmVl/LWVjbGlwc2UtbG9n/by1pY29uLWRvd25s/b2FkLWluLXN2Zy1w/bmctZ2lmLWZpbGUt/Zm9ybWF0cy0tdGVj/aG5vbG9neS1zb2Np/YWwtbWVkaWEtY29t/cGFueS12b2wtMi1w/YWNrLWxvZ29zLWlj/b25zLTMwMjk5Njgu/cG5nP2Y9d2VicCZ3/PTEyOA' }, 
+  { name: 'vs code', icon: 'https://imgs.search.brave.com/KIFSAUHfU3HD7XXgrT1LWIHEhVV3QovG50yKzryxNvU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuaWNvbi1pY29u/cy5jb20vMjEwNy9Q/TkcvNTEyL2ZpbGVf/dHlwZV92c2NvZGVf/aWNvbl8xMzAwODQu/cG5n' }, 
+  { name: 'swagger', icon: 'https://imgs.search.brave.com/w-PKXN4k5K0UHFIjE3hWi5zYi4lrTbJ_lXxTRlmFjcI/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuaWNvbi1pY29u/cy5jb20vMjEwNy9Q/TkcvOTYvZmlsZV90/eXBlX3N3YWdnZXJf/aWNvbl8xMzAxMzQu/cG5n' }, 
+  { name: 'netlify', icon: 'https://imgs.search.brave.com/XmGjAm17NzCr3tQOZJ7laA34ilaJIsUNwjHp0aMNWjc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzQ3LzIvbmV0bGlm/eS1pY29uLWxvZ28t/cG5nX3NlZWtsb2dv/LTQ3Nzk1MC5wbmc' }, 
+  { name: 'github', icon: 'fa-brands fa-github' },
+  { name: 'git', icon: 'https://imgs.search.brave.com/8Yxn5ewJ28_Los9PMt2BX-CM_ZIBIz07fwqcB9DzuSE/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbnNjb3V0LmNv/bS9pY29uL2ZyZWUv/cG5nLTI1Ni9mcmVl/LWdpdC0yMjU5OTYu/cG5nP2Y9d2VicCZ3/PTEyOA' }, 
+  { name: 'figma', icon: 'https://imgs.search.brave.com/QWNgo_A7pXjWAZ4PM2R-L-9NkF2paVAOVTFhq4oqQ3Y/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9jZG4u/cHJvZC53ZWJzaXRl/LWZpbGVzLmNvbS82/MzY0OTZkM2YwZWJm/ZGFiYTk3ODQ2NTUv/NjgyODI1Mzc0N2Jh/MzYyZWJkMmJkOWQ3/X2ZpZ21hLnN2Zw' },
+  { name: 'canva', icon: 'https://imgs.search.brave.com/TAmgzKZNPzGKl9oG1VVRvntrrgldA1p4IqkCMBAc_XQ/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly91eHdp/bmcuY29tL3dwLWNv/bnRlbnQvdGhlbWVz/L3V4d2luZy9kb3du/bG9hZC9icmFuZHMt/YW5kLXNvY2lhbC1t/ZWRpYS9jYW52YS1p/Y29uLnBuZw' }, 
+];
+
+
+      // Function to render skills
+      const skillsGrid = document.getElementById('skills-grid');
+      skillsGrid.innerHTML = ''; // Clear existing skills to re-render
+      skills.forEach(skill => {
+        const skillCard = document.createElement('div');
+        skillCard.className = 'flex flex-col items-center p-6 bg-gray-50 rounded-xl shadow-md card fade-in';
+        
+        let iconHtml;
+        if (skill.icon.startsWith('http')) {
+          // If it's a URL, use an <img> tag
+          iconHtml = `<img src="${skill.icon}" alt="${skill.name} icon" class="skill-icon-img" onerror="this.onerror=null;this.src='https://placehold.co/50x50/E2E8F0/64748B?text=Icon'">`;
+        } else {
+          // Otherwise, assume it's a Font Awesome class
+          iconHtml = `<i class="${skill.icon} text-gray-900 text-5xl mb-4"></i>`;
+        }
+
+        skillCard.innerHTML = `
+          ${iconHtml}
+          <p class="text-lg font-semibold text-gray-700 text-center capitalize">${skill.name}</p>
+        `;
+        skillsGrid.appendChild(skillCard);
+      });
+
+      // Smooth scroll and active link logic
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sections = document.querySelectorAll('main > section');
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          // Don't prevent default for dropdown buttons
+          if (!link.classList.contains('dropdown-button')) {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            // Close mobile menu after clicking a link
+            document.getElementById('mobile-menu').classList.add('hidden');
+          }
+        });
+      });
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Remove active class from all links
+            document.querySelectorAll('.active-nav-link').forEach(link => {
+              link.classList.remove('active-nav-link', 'active-line');
+            });
+            
+            // Add active class to the current section's link
+            const currentLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+            if (currentLink) {
+                currentLink.classList.add('active-nav-link', 'active-line');
+            }
+
+            // Also highlight the parent dropdown button if a sub-link is active
+            if (entry.target.id === 'about' || entry.target.id === 'education' || entry.target.id === 'experience') {
+                const aboutDropdownButton = document.querySelector('.dropdown-button[href="#about"]');
+                if (aboutDropdownButton) {
+                    aboutDropdownButton.classList.add('active-nav-link', 'active-line');
+                }
+            }
+            if (entry.target.id === 'projects' || entry.target.id === 'skills' || entry.target.id === 'certificates') {
+                const careerDropdownButton = document.querySelector('.dropdown-button[href="#projects"]');
+                if (careerDropdownButton) {
+                    careerDropdownButton.classList.add('active-nav-link', 'active-line');
+                }
+            }
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+
+      // Mobile menu and dropdown functionality
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileDropdownButtons = document.querySelectorAll('.mobile-nav-link-button');
+
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      mobileDropdownButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const dropdownMenu = button.nextElementSibling;
+          const icon = button.querySelector('i');
+          // Toggle the dropdown menu visibility
+          dropdownMenu.classList.toggle('active');
+          // Rotate the icon
+          icon.classList.toggle('rotate-180');
+        });
+      });
+
+      // Close mobile menu when a link is clicked
+      document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>
